@@ -1,0 +1,35 @@
+{
+	"name": "@qualiture/tesla-api",
+	"version": "0.0.2",
+	"description": "An unofficial library that wraps the Tesla Owner's API",
+	"main": "dist/index.js",
+	"types": "dist",
+	"files": [
+		"/dist"
+	],
+	"scripts": {
+		"build": "tsc",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/qualiture/tesla-api.git"
+	},
+	"keywords": [
+		"tesla",
+		"tesla-api"
+	],
+	"author": "qualiture",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/qualiture/tesla-api/issues"
+	},
+	"homepage": "https://github.com/qualiture/tesla-api#readme",
+	"dependencies": {
+		"axios": "^1.6.6"
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.6",
+		"typescript": "^5.3.3"
+	}
+}
