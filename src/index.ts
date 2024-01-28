@@ -1,72 +1,71 @@
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 
-import { Constants } from "./constants";
 import { 
-    ProductResponse,
-    RefreshAccessTokenRequestBody, 
-    RefreshAccessTokenResponse,
-    Vehicle
+    IRefreshAccessTokenResponse,
+    IUser,
+    IVehicle
 } from "./interfaces";
+import Authorization from "./auth";
+import Users from "./users";
+import Vehicle from "./vehicle";
 
 export default class TeslaAPI {
 
-    protected refreshToken: string = "";
-    protected accessToken: string = "";
-    protected accessTokenExpiresIn: number = 0;
+    protected auth: Authorization;
+
+    constructor(accessToken: string) {
+        this.auth = new Authorization(accessToken);
+
+    }
 
     /**
-     * Retrieves the version of the `@qualiture/tesla-api` package
+     * Retrieves the version of this package
      * @returns Version of the `@qualiture/tesla-api` package
      */
-    public getVersion() : string {
+    public getPackageVersion() : string {
         const pjson = require("../package.json");
 
         return pjson.version;
     }
 
-    public getRefreshedAccessToken(refreshToken: string) : Promise<RefreshAccessTokenResponse> {
-        const body: RefreshAccessTokenRequestBody = {
-            grant_type: Constants.REFRESH_TOKEN.REQUEST_BODY.GRANT_TYPE,
-            client_id: Constants.REFRESH_TOKEN.REQUEST_BODY.CLIENT_ID,
-            scope: Constants.REFRESH_TOKEN.REQUEST_BODY.SCOPE,
-            refresh_token: refreshToken
-        };
-        
-        return new Promise((resolve, reject) => {
-            axios.post(Constants.REFRESH_TOKEN.ENDPOINT, body)
-                .then((response) => {
-                    const data: RefreshAccessTokenResponse = response.data;
-
-                    this.accessToken = data.access_token;
-                    this.accessTokenExpiresIn = data.expires_in;
-
-                    resolve(data);
-                }).catch((err) => {
-                    reject(err);
-                });
-        });
+    /**
+     * Refreshes the access token using the refresh token
+     * @param refreshToken The refresh token
+     * @returns Object with access token and expiration
+     */
+    public getRefreshedAccessToken(refreshToken: string) : Promise<IRefreshAccessTokenResponse> {
+        return this.auth.getRefreshedAccessToken(refreshToken);
     }
 
-    public getVehicle() : Promise<Vehicle> {
-        return new Promise((resolve, reject) => {
-            const config = this.getAxiosConfig();
+    /**
+     * Gets user details
+     * @returns
+     */
+    public getUser() : Promise<IUser> {
+        return Users.getUser(this.getAxiosConfig());
+    }
 
-            axios.get(Constants.PRODUCT.ENDPOINT, config)
-                .then((response) => {
-                    const data: ProductResponse = response.data;
-                    const vehicle = data.response[0];
+    /**
+     * Retrieves all vehicle details for the current owner. Data is retrieved from Tesla servers (so not from car itself)
+     * @returns Array of vehicles
+     */
+    public getOwnerVehicles() : Promise<IVehicle[]> {
+        return Vehicle.getOwnerVehicles(this.getAxiosConfig());
+    }
 
-                    resolve(vehicle);
-                }).catch((err) => {
-                    reject(err);
-                });
-        });
+    /**
+     * Retrieves all vehicle data and configuration. Data is retrieved from the vehicle itself, specified by the `vehicleId` parameter
+     * @param vehicleId Value of `IVehicle.id`
+     * @returns 
+     */
+    public getVehicleData(vehicleId: number) {
+        return Vehicle.getVehicleData(vehicleId, this.getAxiosConfig());
     }
 
     private getAxiosConfig() : AxiosRequestConfig {
         const config: AxiosRequestConfig = {
             headers: {
-                Authorization: `Bearer ${this.accessToken}`
+                Authorization: `Bearer ${this.auth.getAccessToken()}`
             }
         };
 

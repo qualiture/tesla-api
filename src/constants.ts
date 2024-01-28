@@ -6,8 +6,10 @@ const ApiConstants = {
     },
 
     ENDPOINT: {
-        TOKEN   : "/token",
-        PRODUCTS: "/products?orders=true"
+        TOKEN        : "/token",
+        USERS        : "/users/me",
+        PRODUCTS     : "/products?orders=true",
+        VEHICLE_DATA : "/vehicles/%d/vehicle_data"   // %d = IVehicle's 'id' value
     }
 
 } as const;
@@ -23,8 +25,16 @@ const Constants = {
         ENDPOINT: ApiConstants.BASE_URL.AUTH + ApiConstants.ENDPOINT.TOKEN
     },
 
+    USER: {
+        ENDPOINT: ApiConstants.BASE_URL.OWNER_API + ApiConstants.ENDPOINT.USERS
+    },
+
     PRODUCT: {
         ENDPOINT: ApiConstants.BASE_URL.OWNER_API + ApiConstants.ENDPOINT.PRODUCTS
+    },
+
+    VEHICLE_DATA: {
+        ENDPOINT: ApiConstants.BASE_URL.OWNER_API + ApiConstants.ENDPOINT.VEHICLE_DATA
     }
 
 } as const;

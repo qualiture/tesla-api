@@ -25,6 +25,23 @@ Simply use
 npm i @qualiture/tesla-api
 ```
 
-It contains type definitions, so you could use it directly into your TypeScript project.
+## Library Usage
+
+```typescript
+import TeslaAPI from "@qualiture/tesla-api";
+
+const api = new TeslaAPI("<your refresh token>");
+
+// Retrieves owner info
+const owner = await api.getUser();
+
+// Retrieves vehicle(s) info
+const vehicles = await api.getOwnerVehicles();
+
+// Retrieves vehicle data for first vehicle
+const vehicleData = await api.getVehicleData(vehicles[0].id);
+```
+
+The library contains type definitions, so you could use it directly into your TypeScript project.
 
 Have fun!
