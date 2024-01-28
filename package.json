@@ -1,6 +1,6 @@
 {
 	"name": "@qualiture/tesla-api",
-	"version": "0.0.2",
+	"version": "1.0.0",
 	"description": "An unofficial library that wraps the Tesla Owner's API",
 	"main": "dist/index.js",
 	"types": "dist",
