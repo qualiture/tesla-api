@@ -35,7 +35,7 @@ const Constants = {
 
     VEHICLE_DATA: {
         ENDPOINT: ApiConstants.BASE_URL.OWNER_API + ApiConstants.ENDPOINT.VEHICLE_DATA,
-        DEFAULT_PARAMETERS: "drive_state%3Bvehicle_state",
+        DEFAULT_PARAMETERS: "drive_state%3Bvehicle_state%3Bcharge_state%3Bclimate_state%3Bgui_settings%3Bvehicle_config",
         LOCATION_DATA_PARAMETER: "%3Blocation_data"
     }
 

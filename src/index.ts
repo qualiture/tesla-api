@@ -11,11 +11,10 @@ import Vehicle from "./vehicle";
 
 export default class TeslaAPI {
 
-    protected auth: Authorization;
+    private auth!: Authorization;
 
-    constructor(accessToken: string) {
+    public setAccessToken(accessToken: string) : void {
         this.auth = new Authorization(accessToken);
-
     }
 
     /**
