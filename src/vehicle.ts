@@ -32,8 +32,9 @@ export default class Vehicle {
      * @param config 
      * @returns A rollup of all vehicle data plus configuration
      */
-    public static getVehicleData(vehicleId: number, config: AxiosRequestConfig) : Promise<IVehicleData>{
+    public static getVehicleData(vehicleId: number, config: AxiosRequestConfig, includeLocationData?: boolean) : Promise<IVehicleData>{
         return new Promise((resolve, reject) => {
+            const locationDataParameter = includeLocationData ? Constants.VEHICLE_DATA.LOCATION_DATA_PARAMETER : "";
             const vehicleDataEndpoint = util.format(Constants.VEHICLE_DATA.ENDPOINT, vehicleId);
 
             axios.get(vehicleDataEndpoint, config)

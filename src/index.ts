@@ -58,8 +58,8 @@ export default class TeslaAPI {
      * @param vehicleId Value of `IVehicle.id`
      * @returns 
      */
-    public getVehicleData(vehicleId: number) {
-        return Vehicle.getVehicleData(vehicleId, this.getAxiosConfig());
+    public getVehicleData(vehicleId: number, includeLocationData?: boolean) {
+        return Vehicle.getVehicleData(vehicleId, this.getAxiosConfig(), includeLocationData);
     }
 
     private getAxiosConfig() : AxiosRequestConfig {

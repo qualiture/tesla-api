@@ -34,7 +34,8 @@ const Constants = {
     },
 
     VEHICLE_DATA: {
-        ENDPOINT: ApiConstants.BASE_URL.OWNER_API + ApiConstants.ENDPOINT.VEHICLE_DATA
+        ENDPOINT: ApiConstants.BASE_URL.OWNER_API + ApiConstants.ENDPOINT.VEHICLE_DATA,
+        LOCATION_DATA_PARAMETER: "location_data"
     }
 
 } as const;
