@@ -9,7 +9,7 @@ const ApiConstants = {
         TOKEN        : "/token",
         USERS        : "/users/me",
         PRODUCTS     : "/products?orders=true",
-        VEHICLE_DATA : "/vehicles/%d/vehicle_data"   // %d = IVehicle's 'id' value
+        VEHICLE_DATA : "/vehicles/%d/vehicle_data?endpoints=%s"   // %d = IVehicle's 'id' value, %s = location_data
     }
 
 } as const;
@@ -35,7 +35,8 @@ const Constants = {
 
     VEHICLE_DATA: {
         ENDPOINT: ApiConstants.BASE_URL.OWNER_API + ApiConstants.ENDPOINT.VEHICLE_DATA,
-        LOCATION_DATA_PARAMETER: "location_data"
+        DEFAULT_PARAMETERS: "drive_state%3Bvehicle_state",
+        LOCATION_DATA_PARAMETER: "%3Blocation_data"
     }
 
 } as const;

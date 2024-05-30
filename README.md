@@ -30,7 +30,7 @@ npm i @qualiture/tesla-api
 ```typescript
 import TeslaAPI from "@qualiture/tesla-api";
 
-const api = new TeslaAPI("<your refresh token>");
+const api = new TeslaAPI("<your access token>");
 
 // Retrieves owner info
 const owner = await api.getUser();

@@ -34,8 +34,13 @@ export default class Vehicle {
      */
     public static getVehicleData(vehicleId: number, config: AxiosRequestConfig, includeLocationData?: boolean) : Promise<IVehicleData>{
         return new Promise((resolve, reject) => {
-            const locationDataParameter = includeLocationData ? Constants.VEHICLE_DATA.LOCATION_DATA_PARAMETER : "";
-            const vehicleDataEndpoint = util.format(Constants.VEHICLE_DATA.ENDPOINT, vehicleId);
+            let parameters = Constants.VEHICLE_DATA.DEFAULT_PARAMETERS;
+
+            if (includeLocationData) {
+                parameters += Constants.VEHICLE_DATA.LOCATION_DATA_PARAMETER;
+            }
+
+            const vehicleDataEndpoint = util.format(Constants.VEHICLE_DATA.ENDPOINT, vehicleId, parameters);
 
             axios.get(vehicleDataEndpoint, config)
                 .then((response) => {
